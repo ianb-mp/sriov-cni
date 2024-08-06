@@ -248,7 +248,8 @@ func (s *sriovManager) ApplyVFConfig(conf *sriovtypes.NetConf) error {
 	// 1. Set vlan
 	if conf.Vlan != nil {
 		if err = s.nLink.LinkSetVfVlanQosProto(pfLink, conf.VFID, *conf.Vlan, *conf.VlanQoS, sriovtypes.VlanProtoInt[*conf.VlanProto]); err != nil {
-			return fmt.Errorf("failed to set vf %d vlan configuration - id %d, qos %d and proto %s: %v", conf.VFID, *conf.Vlan, *conf.VlanQoS, *conf.VlanProto, err)
+			//return fmt.Errorf("failed to set vf %d vlan configuration - id %d, qos %d and proto %s: %v", conf.VFID, *conf.Vlan, *conf.VlanQoS, *conf.VlanProto, err)
+			return fmt.Errorf("pf %s mac %s: failed to set vf %d vlan configuration - id %d, qos %d and proto %s: %v", pfLink.Attrs().Name, pfLink.Attrs().HardwareAddr, conf.VFID, *conf.Vlan, *conf.VlanQoS, *conf.VlanProto, err)
 		}
 	}
 
